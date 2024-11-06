@@ -122,5 +122,11 @@ const displayManager = (function() {
         dialog.close();
     }
 
-    return { setField, closeDialog };
+    const reset = () => {
+        displays.forEach(display => display.textContent = "");
+        gameboard.reset();
+        gamestate = "Play";
+    }
+
+    return { setField, closeDialog, reset };
 })();
