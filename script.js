@@ -6,8 +6,9 @@ const gameboard = (function() {
         if(canSetField(index)) {
             fields[index] = current;
             current = current === 'X' ? 'O' : 'X';
+            return current === 'X' ? 'O' : 'X';
         } 
-        return checkWin();
+        return false;
     }
 
     const canSetField = (index) => {
@@ -21,51 +22,54 @@ const gameboard = (function() {
 
     const checkRow = (start) => {
         if(fields[start] === '_') return false;
-        if(fields[start] === fields[start+1] === fields[start+2]) return fields[start];
+        if(fields[start] === fields[start+1] && fields[start] === fields[start+2]) return fields[start];
         return false;
     }
 
     const checkRows = () => {
         let rows = [0, 3, 6];
+        let result = false;
         rows.forEach(row => {
             let winner = checkRow(row);
-            if(winner !== false) return winner;
+            if(winner !== false) result = winner;
         });
-        return false;
+        return result;
     }
 
     const checkColumn = (start) => {
         if(fields[start] === '_') return false;
-        if(fields[start] === fields[start+3] === fields[start+6]) return fields[start];
+        if(fields[start] === fields[start+3] && fields[start] === fields[start+6]) return fields[start];
         return false;
     }
 
     const checkColumns = () => {
         let columns = [0, 1, 2];
+        let result = false;
         columns.forEach(column => {
             let winner = checkColumn(column);
-            if(winner !== false) return winner;
+            if(winner !== false) result = winner;;
         });
-        return false;
+        return result;
     }
 
     const checkDiagonals = (start) => {
         if(fields[0] !== '_') {
-            if(fields[0] === fields[4] === fields[8]) return fields[0];
+            if(fields[0] === fields[4] && fields[0] === fields[8]) return fields[0];
         }
 
         if(fields[2] !== '_') {
-            if(fields[2] === fields[4] === fields[6]) return fields[2];
+            if(fields[2] === fields[4] && fields[2] === fields[6]) return fields[2];
         }
 
         return false;
     }
 
     const checkDraw = () => {
+        let draw = true;
         fields.forEach(field => {
-            if(field === '_') return false;
+            if(field === '_') draw = false;
         });
-        return true;
+        return draw;
     }
 
     const checkWin = () => {
@@ -89,6 +93,34 @@ const gameboard = (function() {
         }
     }
 
-    return { setField, reset, printToConsole };
+    return { setField, reset, printToConsole, checkWin };
 })();
 
+const displayManager = (function() {
+    let displays = document.querySelectorAll(".field");
+    let dialog = document.querySelector("dialog");
+    let gamestate = "Play";
+
+    const setField = (index) => {
+        if(gamestate !== "Play") return;
+
+        let output = gameboard.setField(index);
+        if(output !== false) {
+            displays[index].textContent = output;
+            output = gameboard.checkWin();
+            if(output !== false) handleWin(output);
+        }
+    }
+
+    const handleWin = (player) => {
+        gamestate = "Done";
+        dialog.children[0].children[0].textContent = `${player} ${player === 'Draw' ? "" : " wins!"}`;
+        dialog.show();
+    }
+
+    const closeDialog = () => {
+        dialog.close();
+    }
+
+    return { setField, closeDialog };
+})();

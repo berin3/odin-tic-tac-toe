@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tic-Tac-Toe</title>
+</head>
+<body>
+    <h1 class="title">Tic-Tac-Toe</h1>
+    <div class="content">
+        <div class="gameboard">
+            <div class="field" onclick="displayManager.setField(0)"></div>
+            <div class="field" onclick="displayManager.setField(1)"></div>
+            <div class="field" onclick="displayManager.setField(2)"></div>
+            <div class="field" onclick="displayManager.setField(3)"></div>
+            <div class="field" onclick="displayManager.setField(4)"></div>
+            <div class="field" onclick="displayManager.setField(5)"></div>
+            <div class="field" onclick="displayManager.setField(6)"></div>
+            <div class="field" onclick="displayManager.setField(7)"></div>
+            <div class="field" onclick="displayManager.setField(8)"></div>
+        </div>
+    </div>
+    <dialog>
+        <div>
+            <p>X Wins!</p>
+            <button onclick="displayManager.closeDialog()">Ok</button>
+        </div>
+    </dialog>
+    <script src="script.js"></script>
+</body>
+</html>
