@@ -97,8 +97,10 @@ const gameboard = (function() {
 })();
 
 const displayManager = (function() {
-    let displays = document.querySelectorAll(".field");
-    let dialog = document.querySelector("dialog");
+    const displays = document.querySelectorAll(".field");
+    const dialog = document.querySelector("dialog");
+    const xName = document.querySelector("#X-name");
+    const yName = document.querySelector("#Y-name");
     let gamestate = "Play";
 
     const setField = (index) => {
@@ -114,7 +116,7 @@ const displayManager = (function() {
 
     const handleWin = (player) => {
         gamestate = "Done";
-        dialog.children[0].children[0].textContent = `${player} ${player === 'Draw' ? "" : " wins!"}`;
+        dialog.children[0].children[0].textContent = `${player === 'X' ? xName.value : yName.value} ${player === 'Draw' ? "" : " wins!"}`;
         dialog.show();
     }
 

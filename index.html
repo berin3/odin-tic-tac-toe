@@ -10,6 +10,10 @@
     <h1 class="title">Tic-Tac-Toe</h1>
     <button class="reset" onclick="displayManager.reset()">Reset</button>
     <div class="content">
+        <div class="name-input">
+            <label for="X-name">X Player</label>
+            <input type="text" id="X-name">
+        </div>
         <div class="gameboard">
             <div class="field" onclick="displayManager.setField(0)"></div>
             <div class="field" onclick="displayManager.setField(1)"></div>
@@ -20,6 +24,10 @@
             <div class="field" onclick="displayManager.setField(6)"></div>
             <div class="field" onclick="displayManager.setField(7)"></div>
             <div class="field" onclick="displayManager.setField(8)"></div>
+        </div>
+        <div class="name-input">
+            <label for="Y-name">Y Player</label>
+            <input type="text" id="Y-name">
         </div>
     </div>
     <dialog>
